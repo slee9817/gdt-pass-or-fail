@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GD&amp;T: Pass or Fail?</title>
+<meta name="description" content="A GD&amp;T and print-reading quiz game: read the callout, read the inspection report, and decide if the part passes.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f1d2e'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%237cc4ff' stroke-width='2.5'/%3E%3Cpath d='M4 16h24M16 4v24' stroke='%237cc4ff' stroke-width='2.5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>GD&amp;T: <span class="pass-word">Pass</span> or <span class="fail-word">Fail</span>?</h1>
+    <p class="sub">Read the callout. Read the inspection report. Make the call.</p>
+  </header>
+
+  <main>
+    <!-- Level select -->
+    <section id="menu" class="menu">
+      <h2>Choose your level</h2>
+      <div class="modes">
+        <button class="mode-card" data-mode="beginner">
+          <span class="mode-tag">Level 1</span>
+          <span class="mode-name">Beginner</span>
+          <span class="mode-desc">Reading the print: linear and diameter tolerances, limit dimensions,
+            unilateral tolerances, radii, angles, and title block tolerances.</span>
+          <span class="mode-meta">30 seconds per question · Best <b id="best-beginner">–</b></span>
+        </button>
+        <button class="mode-card" data-mode="advanced">
+          <span class="mode-tag">Level 2</span>
+          <span class="mode-name">Advanced</span>
+          <span class="mode-desc">Geometric tolerances: flatness, position (RFS, MMC, LMC),
+            perpendicularity, profile of a surface, and circular runout.</span>
+          <span class="mode-meta">60 seconds per question · Best <b id="best-advanced">–</b></span>
+        </button>
+      </div>
+      <p class="hint">10 questions. Faster correct answers earn a speed bonus, and streaks earn extra.
+        Keys: <kbd>P</kbd> pass, <kbd>F</kbd> fail, <kbd>Enter</kbd> next.</p>
+    </section>
+
+    <div id="game" class="game hidden">
+      <div class="scorebar">
+        <span class="mode-chip" id="modeName"></span>
+        <span>Question <b id="qNum">1</b> / <span id="qTotal">10</span></span>
+        <span>Score <b id="score">0</b></span>
+        <span>Streak <b id="streak">0</b></span>
+        <span class="time-item">Time <b id="time">0</b></span>
+        <button id="quitBtn" class="link">Change level</button>
+      </div>
+      <div class="timebar"><div id="timeFill"></div></div>
+
+      <div class="question">
+        <!-- The drawing -->
+        <section class="drawing-sheet">
+          <div class="sheet-label" id="qType"></div>
+          <div id="drawing"></div>
+        </section>
+
+        <!-- The inspection report -->
+        <section class="report">
+          <h2>Inspection report</h2>
+          <table id="reportTable"></table>
+          <div class="buttons" id="answerButtons">
+            <button id="passBtn" class="pass">PASS <kbd>P</kbd></button>
+            <button id="failBtn" class="fail">FAIL <kbd>F</kbd></button>
+          </div>
+        </section>
+      </div>
+
+      <!-- Shown after answering -->
+      <section id="verdict" class="verdict hidden">
+        <h3 id="verdictTitle"></h3>
+        <div class="points" id="points"></div>
+        <p id="verdictBody"></p>
+        <button id="nextBtn" class="next"><span id="nextLabel">Next question →</span> <kbd>Enter</kbd></button>
+      </section>
+
+      <!-- Shown after the last question -->
+      <section id="summary" class="summary hidden">
+        <h2>Round complete</h2>
+        <div id="grade" class="grade"></div>
+        <p id="gradeNote" class="grade-note"></p>
+        <p id="summaryText"></p>
+        <div class="summary-buttons">
+          <button id="againBtn" class="next">↻ Play again</button>
+          <button id="menuBtn" class="secondary">Change level</button>
+        </div>
+        <h3 id="reviewTitle" class="review-title"></h3>
+        <div id="review" class="review"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    Built by <a href="https://slee9817.github.io/">Sean Lee</a>, quality engineer ·
+    <a href="https://github.com/slee9817/gdt-pass-or-fail">Source</a> ·
+    Practice tool, not an ASME Y14.5 reference
+  </footer>
+
+  <script src="questions.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
